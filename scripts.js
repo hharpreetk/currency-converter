@@ -13,7 +13,18 @@ $(document).ready(function () {
     });
   }
 
-  
+  // Function to populate the rates table with data
+  function populateRatesTable(rates) {
+    const $ratesTableBody = $("#ratesTableBody");
+    $ratesTableBody.empty(); // Clear previous data
+
+    $.each(rates, (currency, rate) => {
+      const $row = $("<tr>");
+      $row.append($("<td>", { text: currency, class: "text-center" }));
+      $row.append($("<td>", { text: rate.toFixed(6), class: "text-center" }));
+      $ratesTableBody.append($row);
+    });
+  }
 
   // Function to populate the currency options in the select elements
   function populateCurrencyOptions(currencyData) {
@@ -84,6 +95,9 @@ $(document).ready(function () {
 
         // Update the timeLastUpdate span element
         $timeLastUpdate.text(new Date(data.time_last_update_utc).toUTCString());
+
+        // Update the rates table with the rates data
+        populateRatesTable($rates);
       })
       .catch((error) => {
         alert("Error fetching exchange rates: " + error.message);
