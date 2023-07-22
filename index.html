@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <!-- Latest compiled and Bootstrap minified CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Latest compiled Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Main Content -->
+    <main class="main">
+      <div class="px-4 my-5">
+        <h1 class="display-4 text-center fw-bold text-body-emphasis">
+          Currency Converter
+        </h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead text-center mb-4">Check Live Exchange Rates</p>
+        </div>
+        <div class="container mt-3">
+          <div class="p-3 p-md-5 bg-body-tertiary rounded-3">
+            <div id="converter" class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="amount" class="form-label amount__label"
+                    >Amount</label
+                  >
+                  <input
+                    type="number"
+                    id="amount"
+                    class="form-control converter__input"
+                    placeholder="Enter amount"
+                    value="1"
+                  />
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="baseCurrency" class="form-label converter__label"
+                    >Base Currency</label
+                  >
+                  <select
+                    id="baseCurrency"
+                    class="form-select converter__select"
+                  >
+                    <!-- Options for base currency -->
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label
+                    for="targetCurrency"
+                    class="form-label converter__label"
+                    >Target Currency</label
+                  >
+                  <select
+                    id="targetCurrency"
+                    class="form-select converter__select"
+                  >
+                    <!-- Options for target currency -->
+                  </select>
+                </div>
+                <h3 id="conversionResult" class="mt-3 converter__result"></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
