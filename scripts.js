@@ -13,6 +13,8 @@ $(document).ready(function () {
     });
   }
 
+  
+
   // Function to populate the currency options in the select elements
   function populateCurrencyOptions(currencyData) {
     const $baseCurrencySelect = $("#baseCurrency");
