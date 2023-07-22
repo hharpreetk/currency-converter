@@ -47,6 +47,7 @@ $(document).ready(function () {
     const $conversionResult = $("#conversionResult");
     const $baseToTargetRate = $("#baseToTargetRate");
     const $targetToBaseRate = $("#targetToBaseRate");
+    const $timeLastUpdate = $("#timeLastUpdate");
 
     if (isNaN($amount)) {
       alert("Please enter a valid amount.");
@@ -78,6 +79,9 @@ $(document).ready(function () {
         } else {
           $baseToTargetRate.prop("hidden", true);
         }
+
+        // Update the timeLastUpdate span element
+        $timeLastUpdate.text(new Date(data.time_last_update_utc).toUTCString());
       })
       .catch((error) => {
         alert("Error fetching exchange rates: " + error.message);
