@@ -24,6 +24,7 @@ $(document).ready(function () {
         $("<option>", {
           value: currency,
           text: currency,
+          selected: currency === "USD" ? true : false,
         })
       );
 
@@ -32,6 +33,7 @@ $(document).ready(function () {
         $("<option>", {
           value: currency,
           text: currency,
+          selected: currency === "EUR" ? true : false,
         })
       );
     });
@@ -43,6 +45,8 @@ $(document).ready(function () {
     const $targetCurrency = $("#targetCurrency").val();
     const $amount = parseFloat($("#amount").val());
     const $conversionResult = $("#conversionResult");
+    const $baseToTargetRate = $("#baseToTargetRate");
+    const $targetToBaseRate = $("#targetToBaseRate");
 
     if (isNaN($amount)) {
       alert("Please enter a valid amount.");
@@ -62,8 +66,34 @@ $(document).ready(function () {
 
         $conversionResult.text(
           `${$amount} ${$baseCurrency} = ${$convertedAmount.toFixed(
-            4
+            6
           )} ${$targetCurrency}`
+        );
+
+        if ($amount !== 1) {
+          $baseToTargetRate.text(
+            `1 ${$baseCurrency} = ${$rate.toFixed(6)} ${$targetCurrency}`
+          );
+          $baseToTargetRate.prop("hidden", false);
+        } else {
+          $baseToTargetRate.prop("hidden", true);
+        }
+      })
+      .catch((error) => {
+        alert("Error fetching exchange rates: " + error.message);
+      });
+
+    fetchExchangeRates($targetCurrency)
+      .then((data) => {
+        const $rates = data.rates;
+        const $rate = $rates[$baseCurrency];
+
+        if (!$rate) {
+          throw new Error("Invalid target currency.");
+        }
+
+        $targetToBaseRate.text(
+          `1 ${$targetCurrency} = ${$rate.toFixed(6)} ${$baseCurrency}`
         );
       })
       .catch((error) => {
