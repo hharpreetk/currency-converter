@@ -48,15 +48,20 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#converter"
-                >Converter</a
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="#converter"
+                role="button"
               >
+                Converter
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#rates">Rates</a>
+              <a class="nav-link" href="#rates" role="button">Rates</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#resources">Resources</a>
+              <a class="nav-link" href="#resources" role="button">Resources</a>
             </li>
           </ul>
         </div>
@@ -70,36 +75,48 @@
         <div class="mx-auto">
           <p class="lead main__subtitle">Check Live Exchange Rates</p>
         </div>
-        <div class="text-white p-3 p-md-5 rounded-3 brand-color">
+        <div
+          class="text-white p-3 p-md-5 rounded-3 brand-color"
+          role="region"
+          aria-label="Currency Converter Form"
+        >
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-4 mb-3 converter__field">
-                <label for="amount" class="form-label converter__label"
-                  >Amount</label
-                >
+                <label for="amount" class="form-label converter__label">
+                  Amount
+                </label>
                 <input
                   type="number"
                   id="amount"
                   class="form-control converter__input"
                   placeholder="Enter amount"
                   value="1"
+                  required
+                  aria-required="true"
+                  aria-label="Enter the amount to convert"
                 />
               </div>
               <div class="col-md-4 mb-3 converter__field">
-                <label for="baseCurrency" class="form-label converter__label"
-                  >Base Currency</label
+                <label for="baseCurrency" class="form-label converter__label">
+                  Base Currency
+                </label>
+                <select
+                  id="baseCurrency"
+                  class="form-select converter__select"
+                  aria-label="Select the base currency"
                 >
-                <select id="baseCurrency" class="form-select converter__select">
                   <!-- Options for base currency -->
                 </select>
               </div>
               <div class="col-md-4 mb-3 converter__field">
-                <label for="targetCurrency" class="form-label converter__label"
-                  >Target Currency</label
-                >
+                <label for="targetCurrency" class="form-label converter__label">
+                  Target Currency
+                </label>
                 <select
                   id="targetCurrency"
                   class="form-select converter__select"
+                  aria-label="Select the target currency"
                 >
                   <!-- Options for target currency -->
                 </select>
@@ -107,24 +124,37 @@
             </div>
             <div class="row">
               <div class="col-md-12 px-3">
-                <h3 id="conversionResult" class="converter__result"></h3>
-                <h6 id="baseToTargetRate" class="converter__rate" hidden></h6>
+                <h3
+                  id="conversionResult"
+                  class="converter__result"
+                  role="status"
+                  aria-live="polite"
+                ></h3>
+                <h6
+                  id="baseToTargetRate"
+                  class="converter__rate"
+                  aria-hidden="true"
+                ></h6>
                 <h6 id="targetToBaseRate" class="converter__rate"></h6>
               </div>
             </div>
             <div
               class="text-white mt-3 pt-3 pb-1 ps-4 pe-2 brand-color--dark converter__callout"
+              role="region"
+              aria-label="Exchange Rate API Information"
             >
               <p class="converter__callout__info">
                 The results above are based on the
-                <span id="timeLastUpdate"></span>
-                exchange rate from
+                <span id="timeLastUpdate"></span> exchange rate from
                 <a
                   href="https://www.exchangerate-api.com"
                   target="_blank"
                   class="text-white"
-                  >Exchange Rate API</a
+                  rel="noopener noreferrer"
+                  aria-label="Exchange Rate API Website"
                 >
+                  Exchange Rate API
+                </a>
               </p>
             </div>
           </div>
@@ -144,7 +174,7 @@
                   <th class="text-center">Rate</th>
                 </tr>
               </thead>
-              <tbody id="ratesTableBody">
+              <tbody id="ratesTableBody" role="rowgroup" aria-live="polite">
                 <!-- Rates table rows (This will be populated dynamically in JavaScript) -->
               </tbody>
             </table>
@@ -152,7 +182,6 @@
         </div>
       </div>
     </div>
-    <!-- Resources -->
     <div id="resources" class="container px-4 pt-4">
       <div class="info-section pb-3">
         <h2 class="info-section__title">Exchange Rate Influencing Factors</h2>
@@ -197,25 +226,39 @@
         </p>
         <ul class="info-section__list">
           <li class="info-section__item">
-            <a href="https://www.exchangerate-api.com" target="_blank"
-              >Exchange Rate API</a
+            <a
+              href="https://www.exchangerate-api.com"
+              target="_blank"
+              rel="noopener noreferrer"
             >
+              Exchange Rate API
+            </a>
             - Free API for real-time exchange rates.
           </li>
           <li class="info-section__item">
-            <a href="https://www.xe.com/currencyconverter/" target="_blank"
-              >XE Currency Converter</a
+            <a
+              href="https://www.xe.com/currencyconverter/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
+              XE Currency Converter
+            </a>
             - Popular online currency converter tool.
           </li>
           <li class="info-section__item">
-            <a href="https://www.investopedia.com/" target="_blank"
+            <a
+              href="https://www.investopedia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               >Investopedia</a
             >
             - Financial education and investment resource.
           </li>
           <li class="info-section__item">
-            <a href="https://www.imf.org/" target="_blank"
+            <a
+              href="https://www.imf.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               >International Monetary Fund (IMF)</a
             >
             - Global financial institution.
@@ -224,7 +267,6 @@
         </ul>
       </div>
     </div>
-    <!-- Footer -->
     <footer class="text-white py-3 mt-3 brand-color">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item">
@@ -239,11 +281,11 @@
       </ul>
       <p class="text-center">© 2023 Currency Converter, Inc</p>
     </footer>
-    <!-- Scroll to Top Button -->
     <button
       type="button"
       class="btn btn-floating btn-lg btn-back-to-top"
       id="backToTop"
+      aria-label="Back to Top"
     >
       <i class="fa fa-solid fa-arrow-up" aria-hidden="true"></i>
     </button>
