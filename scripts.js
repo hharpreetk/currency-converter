@@ -3,13 +3,9 @@ $(document).ready(function () {
   function fetchExchangeRates(baseCurrency) {
     const API_URL = `https://open.er-api.com/v6/latest/${baseCurrency}`;
 
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: API_URL,
-        method: "GET",
-        success: resolve,
-        error: reject,
-      });
+    return $.ajax({
+      url: API_URL,
+      method: "GET",
     });
   }
 
@@ -19,9 +15,10 @@ $(document).ready(function () {
     $ratesTableBody.empty(); // Clear previous data
 
     $.each(rates, (currency, rate) => {
-      const $row = $("<tr>");
-      $row.append($("<td>", { text: currency, class: "text-center" }));
-      $row.append($("<td>", { text: rate.toFixed(6), class: "text-center" }));
+      const $row = $("<tr>").append(
+        $("<td>", { text: currency, class: "text-center" }),
+        $("<td>", { text: rate.toFixed(6), class: "text-center" })
+      );
       $ratesTableBody.append($row);
     });
   }
@@ -37,7 +34,7 @@ $(document).ready(function () {
         $("<option>", {
           value: currency,
           text: currency,
-          selected: currency === "USD" ? true : false,
+          selected: currency === "USD",
         })
       );
 
@@ -46,7 +43,7 @@ $(document).ready(function () {
         $("<option>", {
           value: currency,
           text: currency,
-          selected: currency === "EUR" ? true : false,
+          selected: currency === "EUR",
         })
       );
     });
@@ -65,21 +62,26 @@ $(document).ready(function () {
     // Input validation for amount field
     if (isNaN($amount) || $amount <= 0) {
       $conversionResult.text("Please enter a valid amount.");
-      $baseToTargetRate.text("");
-      $baseToTargetRate.prop("hidden", true);
+      $baseToTargetRate.text("").prop("hidden", true);
       return;
     }
 
-    fetchExchangeRates($baseCurrency)
-      .then((data) => {
-        const $rates = data.rates;
-        const $rate = $rates[$targetCurrency];
+    // Asynchronous operation using Promises
+    Promise.all([
+      fetchExchangeRates($baseCurrency),
+      fetchExchangeRates($targetCurrency),
+    ])
+      .then(([baseData, targetData]) => {
+        const $baseRates = baseData.rates;
+        const $targetRates = targetData.rates;
+        const $baseRate = $baseRates[$targetCurrency];
+        const $targetRate = $targetRates[$baseCurrency];
 
-        if (!$rate) {
-          throw new Error("Invalid target currency.");
+        if (!$baseRate || !$targetRate) {
+          throw new Error("Invalid currency.");
         }
 
-        const $convertedAmount = $amount * $rate;
+        const $convertedAmount = $amount * $baseRate;
 
         $conversionResult.text(
           `${$amount} ${$baseCurrency} = ${$convertedAmount.toFixed(
@@ -87,75 +89,63 @@ $(document).ready(function () {
           )} ${$targetCurrency}`
         );
 
+        $targetToBaseRate.text(
+          `1 ${$targetCurrency} = ${$targetRate.toFixed(6)} ${$baseCurrency}`
+        );
+
         if ($amount !== 1) {
-          $baseToTargetRate.text(
-            `1 ${$baseCurrency} = ${$rate.toFixed(6)} ${$targetCurrency}`
-          );
-          $baseToTargetRate.prop("hidden", false);
+          $baseToTargetRate
+            .text(
+              `1 ${$baseCurrency} = ${$baseRate.toFixed(6)} ${$targetCurrency}`
+            )
+            .prop("hidden", false);
         } else {
           $baseToTargetRate.prop("hidden", true);
         }
 
         // Update the timeLastUpdate span element
-        $timeLastUpdate.text(new Date(data.time_last_update_utc).toUTCString());
+        $timeLastUpdate.text(
+          new Date(baseData.time_last_update_utc).toUTCString()
+        );
 
         // Update the rates table with the rates data
-        populateRatesTable($rates);
+        populateRatesTable($baseRates);
       })
       .catch((error) => {
         $conversionResult.text(
           "Error fetching exchange rates: " + error.message
         );
-        $baseToTargetRate.text("");
-        $baseToTargetRate.prop("hidden", true);
-      });
-
-    fetchExchangeRates($targetCurrency)
-      .then((data) => {
-        const $rates = data.rates;
-        const $rate = $rates[$baseCurrency];
-
-        if (!$rate) {
-          throw new Error("Invalid target currency.");
-        }
-
-        $targetToBaseRate.text(
-          `1 ${$targetCurrency} = ${$rate.toFixed(6)} ${$baseCurrency}`
-        );
-      })
-      .catch((error) => {
-        $targetToBaseRate.text("Error fetching exchange rates.");
+        $baseToTargetRate.text("").prop("hidden", true);
       });
   }
 
-  // Update the result on change of base currency, target currency, or amount
+  // Event Handling using Method Chaining
   $("#baseCurrency, #targetCurrency, #amount").on(
     "input change",
     convertCurrency
   );
 
   // Initial setup
-
-  fetchExchangeRates("USD").then((data) => {
-    const $rates = data.rates;
-    if ($rates) {
-      populateCurrencyOptions($rates);
-      convertCurrency();
-    }
-  });
+  fetchExchangeRates("USD")
+    .then((data) => {
+      const $rates = data.rates;
+      if ($rates) {
+        populateCurrencyOptions($rates);
+        convertCurrency();
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching exchange rates: " + error.message);
+    });
 
   // When the user scrolls down 200px from the top of the document, show the button
   $(window).scroll(function () {
     var showAfter = 200;
-    if ($(this).scrollTop() > showAfter) {
-      $("#backToTop").fadeIn();
-    } else {
-      $("#backToTop").fadeOut();
-    }
+    $("#backToTop").toggle($(this).scrollTop() > showAfter);
   });
 
-  // Click event to scroll to top
-  $("#backToTop").click(function () {
-    $("html, body").scrollTop(0);
+  // Click event to scroll to top using Plugin Development
+  $("#backToTop").on("click", function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
   });
 });
