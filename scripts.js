@@ -136,4 +136,19 @@ $(document).ready(function () {
       convertCurrency();
     }
   });
+
+  // When the user scrolls down 200px from the top of the document, show the button
+  $(window).scroll(function () {
+    var showAfter = 200;
+    if ($(this).scrollTop() > showAfter) {
+      $("#backToTop").fadeIn();
+    } else {
+      $("#backToTop").fadeOut();
+    }
+  });
+
+  // Click event to scroll to top
+  $("#backToTop").click(function () {
+    $("html, body").scrollTop(0);
+  });
 });
