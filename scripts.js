@@ -62,8 +62,11 @@ $(document).ready(function () {
     const $targetToBaseRate = $("#targetToBaseRate");
     const $timeLastUpdate = $("#timeLastUpdate");
 
-    if (isNaN($amount)) {
-      alert("Please enter a valid amount.");
+    // Input validation for amount field
+    if (isNaN($amount) || $amount <= 0) {
+      $conversionResult.text("Please enter a valid amount.");
+      $baseToTargetRate.text("");
+      $baseToTargetRate.prop("hidden", true);
       return;
     }
 
@@ -100,7 +103,11 @@ $(document).ready(function () {
         populateRatesTable($rates);
       })
       .catch((error) => {
-        alert("Error fetching exchange rates: " + error.message);
+        $conversionResult.text(
+          "Error fetching exchange rates: " + error.message
+        );
+        $baseToTargetRate.text("");
+        $baseToTargetRate.prop("hidden", true);
       });
 
     fetchExchangeRates($targetCurrency)
@@ -117,7 +124,7 @@ $(document).ready(function () {
         );
       })
       .catch((error) => {
-        alert("Error fetching exchange rates: " + error.message);
+        $targetToBaseRate.text("Error fetching exchange rates.");
       });
   }
 
