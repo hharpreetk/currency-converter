@@ -25,6 +25,10 @@ button[aria-expanded="true"] > .navbar-toggler-icon {
   font-size: 1.1rem;
 }
 
+.text-justify{
+  text-align: justify!important;
+}
+
 .brand-color {
   background-color: #002a8b;
 }
