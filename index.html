@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Currency Converter</title>
-    <link rel="icon" type="image/x-icon" href="svg/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="svg/favicon.svg" />
     <!-- Latest compiled and Bootstrap minified CSS -->
     <link
       href="https://fonts.googleapis.com/css?family=Lato"
@@ -34,7 +34,9 @@
     <!-- Responsive Navigation -->
     <nav class="navbar navbar-dark navbar-expand-lg px-2 brand-color">
       <div class="container-fluid px-lg-4">
-        <a class="navbar-brand" href="#"><img src="svg/logo.svg" alt="Currency Converter Logo"></a>
+        <a class="navbar-brand" href="#"
+          ><img src="svg/logo.svg" alt="Currency Converter Logo"
+        /></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -139,26 +141,26 @@
                 <h6 id="targetToBaseRate" class="converter__rate"></h6>
               </div>
             </div>
-            <div
-              class="text-white text-justify mt-3 pt-3 pb-1 px-4 brand-color--dark converter__callout"
-              role="region"
-              aria-label="Exchange Rate API Information"
-            >
-              <p class="converter__callout__info">
-                The results above are based on the
-                <span id="timeLastUpdate"></span> exchange rate from
-                <a
-                  href="https://www.exchangerate-api.com"
-                  target="_blank"
-                  class="text-white"
-                  rel="noopener noreferrer"
-                  aria-label="Exchange Rate API Website"
-                >
-                  Exchange Rate API
-                </a>
-              </p>
-            </div>
           </div>
+        </div>
+        <div
+          class="text-white text-justify rounded-3 mt-3 pt-3 pb-1 px-4 brand-color--dark converter__callout"
+          role="region"
+          aria-label="Exchange Rate API Information"
+        >
+          <p class="converter__callout__info">
+            The results above are based on the
+            <span id="timeLastUpdate"></span> exchange rate from
+            <a
+              href="https://www.exchangerate-api.com"
+              target="_blank"
+              class="text-white"
+              rel="noopener noreferrer"
+              aria-label="Exchange Rate API Website"
+            >
+              Exchange Rate API
+            </a>
+          </p>
         </div>
       </div>
     </main>
