@@ -15,20 +15,10 @@ To get started with the Currency Converter project, follow these steps:
 4. Choose the target currency from the second dropdown menu.
 5. Enter the amount you want to convert in the "Amount" field.
 6. The converted amount will be displayed below along with the exchange rates for the selected currencies.
-
-## Where users can get help with your project
-If you encounter any issues, have questions, or need assistance with the Currency Converter project, you can reach out for help in the following ways:
-
-- **GitHub Issues:** You can open an issue on the project's GitHub repository to report bugs or request new features.
-
-## Who maintains and contributes to the project
-The Currency Converter project is currently maintained and developed by Harpreet Kaur. Contributions to the project are welcome and can be made by submitting pull requests on the GitHub repository.
-
-## Citation Information
-The Currency Converter project utilizes the Exchange Rate API to fetch the latest exchange rates. The API provides real-time exchange rate data. If you use this project or the API in your work, please consider giving appropriate credit to the Exchange Rate API by including a reference or link to their website.
+7. Use the search bar to quickly find specific currencies in the exchange rates table.
 
 ## Licensing Information
-This project is licensed under the GNU GPL License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
