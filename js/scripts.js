@@ -17,7 +17,7 @@ $(document).ready(function () {
     $.each(rates, (currency, rate) => {
       const $row = $("<tr>").append(
         $("<td>", { text: currency, class: "text-center" }),
-        $("<td>", { text: rate.toFixed(6), class: "text-center" })
+        $("<td>", { text: parseFloat(rate.toFixed(4)), class: "text-center" })
       );
       $ratesTableBody.append($row);
     });
