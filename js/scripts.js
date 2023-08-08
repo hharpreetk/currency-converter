@@ -23,6 +23,23 @@ $(document).ready(function () {
     });
   }
 
+  //Function to search for target currencies in rates table
+  function searchRatesTable() {
+    // Get the search value
+    const $searchInput = $("#searchCurrencies").val().toUpperCase();
+    // Filter the table row based on the search value
+    $("#ratesTableBody tr").filter(function () {
+      // Get the value in the first column (target currency) of each row
+      const $targetCurrency = $(this).find("td:eq(0)").text().toUpperCase();
+      // Show/hide the row based on whether it matches the search value
+      if ($targetCurrency.indexOf($searchInput) > -1) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+
   // Function to populate the currency options in the select elements
   function populateCurrencyOptions(currencyData) {
     const $baseCurrencySelect = $("#baseCurrency");
@@ -123,11 +140,14 @@ $(document).ready(function () {
       });
   }
 
-  // Event Handling using Method Chaining
+  // Attach an event listener to base currency, target currency and amount
   $("#baseCurrency, #targetCurrency, #amount").on(
     "input change",
     convertCurrency
   );
+
+  // Attach an event listener to the search input
+  $("#searchCurrencies").on("keyup", searchRatesTable);
 
   // Initial setup
   fetchExchangeRates("USD")
