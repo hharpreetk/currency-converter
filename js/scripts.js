@@ -84,19 +84,23 @@ $(document).ready(function () {
         const $convertedAmount = $amount * $baseRate;
 
         $conversionResult.text(
-          `${$amount} ${$baseCurrency} = ${$convertedAmount.toFixed(
-            6
+          `${$amount} ${$baseCurrency} = ${parseFloat(
+            $convertedAmount.toFixed(4)
           )} ${$targetCurrency}`
         );
 
         $targetToBaseRate.text(
-          `1 ${$targetCurrency} = ${$targetRate.toFixed(6)} ${$baseCurrency}`
+          `1 ${$targetCurrency} = ${parseFloat(
+            $targetRate.toFixed(4)
+          )} ${$baseCurrency}`
         );
 
         if ($amount !== 1) {
           $baseToTargetRate
             .text(
-              `1 ${$baseCurrency} = ${$baseRate.toFixed(6)} ${$targetCurrency}`
+              `1 ${$baseCurrency} = ${parseFloat(
+                $baseRate.toFixed(4)
+              )} ${$targetCurrency}`
             )
             .prop("hidden", false);
         } else {
