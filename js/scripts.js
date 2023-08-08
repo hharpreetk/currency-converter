@@ -13,6 +13,7 @@ $(document).ready(function () {
   function populateRatesTable(rates) {
     const $ratesTableBody = $("#ratesTableBody");
     $ratesTableBody.empty(); // Clear previous data
+    clearSearch(); // Clear search input
 
     $.each(rates, (currency, rate) => {
       const $row = $("<tr>").append(
@@ -26,7 +27,7 @@ $(document).ready(function () {
   //Function to search for target currencies in rates table
   function searchRatesTable() {
     // Get the search value
-    const $searchInput = $("#searchCurrencies").val().toUpperCase();
+    const $searchInput = $("#searchRatesTable").val().toUpperCase();
     // Filter the table row based on the search value
     $("#ratesTableBody tr").filter(function () {
       // Get the value in the first column (target currency) of each row
@@ -38,6 +39,12 @@ $(document).ready(function () {
         $(this).hide();
       }
     });
+  }
+
+  // Function to clear the search and show all rows in the table
+  function clearSearch() {
+    $("#searchRatesTable").val(""); // Clear the search input field
+    $("#ratesTableBody tr").show(); // Show all rows in the table
   }
 
   // Function to populate the currency options in the select elements
@@ -147,7 +154,15 @@ $(document).ready(function () {
   );
 
   // Attach an event listener to the search input
-  $("#searchCurrencies").on("keyup", searchRatesTable);
+  $("#searchRatesTable").on("input change keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default behavior
+    }
+    searchRatesTable();
+  });
+
+  // Attach event listener to the search input clear button
+  $("#searchRatesTable").on("search", clearSearch);
 
   // Initial setup
   fetchExchangeRates("USD")
