@@ -119,7 +119,8 @@ $(document).ready(function () {
           )} ${$baseCurrency}`
         );
 
-        if ($amount !== 1) {
+        // Show the base converter rate if amount is greater than 1
+        if ($amount > 1) {
           $baseToTargetRate
             .text(
               `1 ${$baseCurrency} = ${parseFloat(
@@ -129,6 +130,13 @@ $(document).ready(function () {
             .prop("hidden", false);
         } else {
           $baseToTargetRate.prop("hidden", true);
+        }
+
+        // Hide target converter rate if base and target currencies are same
+        if ($baseCurrency == $targetCurrency) {
+          $targetToBaseRate.prop("hidden", true);
+        } else {
+          $targetToBaseRate.prop("hidden", false);
         }
 
         // Update the timeLastUpdate span element
