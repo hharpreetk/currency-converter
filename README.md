@@ -3,6 +3,9 @@
 ## What the project does
 Currency Converter is a web-based application that allows users to convert currencies and check live exchange rates. Users can select a base currency, a target currency, and enter the amount they wish to convert. The application then fetches the latest exchange rates from the Exchange Rate API and performs the currency conversion, displaying the result to the user.
 
+## Demo
+[demo.webm](https://github.com/hharpreetk/currency-converter/assets/68283477/5dfe1fe3-c3b3-47f6-927d-c56612419355)
+
 ## Why the project is useful
 Currency Converter is useful for travelers, investors, and individuals dealing with international transactions. It provides a quick and convenient way to convert currencies and stay informed about the current exchange rates.
 
